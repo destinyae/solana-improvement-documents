@@ -28,7 +28,7 @@ call the new process "Wen restart".
 stalls, human may need to restart most of the validators with a sane state so
 that the cluster can continue to function. This is different from sporadic
 single validator restart which does not impact the cluster. See
-[`cluster restart`](https://docs.solana.com/running-validator/restart-cluster)
+[`cluster restart`](https://docs.anza.xyz/operations/guides/restart-cluster)
 for details.
 
 * `cluster restart slot`: In current `cluster restart` scheme, human normally
@@ -271,7 +271,7 @@ protocol. We call these `non-conforming` validators.
    Assuming a block has child `A` and `B` both on the list, the children's
    combined stake would be `2 * (67% - 5% - X)`. Because we only allow one
    RestartHeaviestFork per pubkey, every validator should select either `A`
-   or `B`, it's easy to find and filter out vialators who selected both. So the
+   or `B`, it's easy to find and filter out validators who selected both. So the
    children's total stake should be less than `100% - X`. We can calculate that
    if `124% - 2 * X < 100% - X`, then `X > 24%`, this is not possible when we
    have at least 80% of the validators in restart. So we prove any block in the
@@ -381,13 +381,13 @@ file for later slashing.
 
 Even though it's not very common that an outage happens across an epoch
 boundary, we do need to prepare for this rare case. Because the main purpose
-of `wen restart` is to make everyone reach aggrement, the following choices
+of `wen restart` is to make everyone reach agreement, the following choices
 are made:
 
 * Every validator only handles 2 epochs, any validator will discard slots
 which belong to an epoch which is > 1 epoch away from its root. If a validator
 has very old root so it can't proceed, it will exit and report error. Since
-we assume an outage will be discovered within 7 hours and one epoch is roughly
+we assume an outage will be discovered within 7 hours and one epoch is roughly41
 two days, handling 2 epochs should be enough.
 
 * The stake weight of each slot is calculated using the epoch the slot is in.
